@@ -1,0 +1,6 @@
+{
+  "name": "BillCraft",
+  "description": "Professional Bill & Invoice Generator with business profile, tax/GST breakdown, UPI QR codes, customer & product management, PDF export, and sales analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
