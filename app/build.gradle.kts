@@ -38,12 +38,6 @@ android {
       keyAlias = System.getenv("KEY_ALIAS") ?: keystoreProperties["RELEASE_KEY_ALIAS"] as String? ?: "upload"
       keyPassword = System.getenv("KEY_PASSWORD") ?: keystoreProperties["RELEASE_KEY_PASSWORD"] as String?
     }
-    create("debugConfig") {
-      storeFile = file("${rootDir}/debug.keystore")
-      storePassword = "android"
-      keyAlias = "androiddebugkey"
-      keyPassword = "android"
-    }
   }
 
   buildTypes {
@@ -53,7 +47,6 @@ android {
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
       signingConfig = signingConfigs.getByName("release")
     }
-    debug { signingConfig = signingConfigs.getByName("debugConfig") }
   }
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11

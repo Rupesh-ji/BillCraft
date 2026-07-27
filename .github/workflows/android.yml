@@ -37,8 +37,44 @@ jobs:
       - name: Validate Gradle
         uses: gradle/wrapper-validation-action@v2
 
+      - name: Generate dummy google-services.json
+        run: |
+          cat << EOF > app/google-services.json
+          {
+            "project_info": {
+              "project_number": "1234567890",
+              "project_id": "dummy-project"
+            },
+            "client": [
+              {
+                "client_info": {
+                  "mobilesdk_app_id": "1:1234567890:android:abcdef1234567890",
+                  "android_client_info": {
+                    "package_name": "com.aistudio.billcraft.app"
+                  }
+                },
+                "api_key": [
+                  {
+                    "current_key": "dummy-api-key"
+                  }
+                ]
+              }
+            ]
+          }
+          EOF
+
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace
+
+      - name: Create local.properties for Keystore configuration
+        run: |
+          cat << EOF > local.properties
+          RELEASE_STORE_FILE=dummy-keystore.jks
+          RELEASE_STORE_PASSWORD=dummy
+          RELEASE_KEY_ALIAS=dummy
+          RELEASE_KEY_PASSWORD=dummy
+          EOF
+          keytool -genkey -v -keystore dummy-keystore.jks -storepass dummy -alias dummy -keypass dummy -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Dummy,O=Dummy,C=US"
 
       - name: Build Release APK
         run: ./gradlew assembleRelease --stacktrace
