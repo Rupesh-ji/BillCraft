@@ -16,3 +16,7 @@
 local.properties
 .env
 debug.keystore
+app/build/
+my-upload-key.jks
+debug.keystore
+local.properties
